@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" >
+    <h:head>
+        <title>Tarefa EJB - Ranking</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet library="css" name="index.css"/>
+    </h:head>
+    <h:body>
+        <h:form id="form" styleClass="form">
+            <h:outputLabel value="Informe seu nome:" for="inputNome" styleClass="outputLabel"/>
+            <h:inputText id="inputNome" value="#{usuarioManagedBean.nome}" required="true" requiredMessage="Nome é obrigatório!" styleClass="inputText"/>
+            <h:commandButton value="OK" styleClass="commandButton"/>
+            <h:message for="inputNome" infoClass="message message-info" errorClass="message message-error"/>
+            <br/>
+
+            <h:outputLabel value="#{usuarioManagedBean.numero1} + #{usuarioManagedBean.numero2} = " for="botaoVerificar" styleClass="outputLabel"/>
+            <h:inputText id="botaoVerificar" value="#{usuarioManagedBean.resultado}" styleClass="inputText" converterMessage="Digite apenas números!"/>
+            <h:commandButton value="Verificar" action="#{usuarioManagedBean.verificarResultado}" 
+                             disabled="#{empty usuarioManagedBean.nome or usuarioManagedBean.nome.trim().isEmpty()}" styleClass="commandButton" />
+            <h:message for="botaoVerificar" infoClass="message message-info" errorClass="message message-error"/>
+            <br/>
+
+            <h:outputText value="====== Ranking ======" style="font-weight:bold;" styleClass="outputText"/>
+            <br/>
+            <div class="ui-repeat">
+                <ui:repeat value="#{usuarioManagedBean.getRanking()}" var="entry" >
+                    <h:outputText value="#{entry.key}.... " styleClass="outputText"/>
+                    <h:outputText value="#{entry.value} pontos" styleClass="outputText"/>
+                    <br/>
+                </ui:repeat>
+            </div>
+        </h:form>
+    </h:body>
+</html>
